@@ -19,6 +19,8 @@ def get_files():
 def chek_integrity():
     files = get_files()
 
+    results = []
+
     for file in files[1:]:
         f = open(blockchain_dir + str(file))
         h = json.load(f)['hash']
@@ -31,7 +33,10 @@ def chek_integrity():
         else:
             res = 'Corrupted'
 
-        print(f'block {prev_file} is: {res}')
+        # print(f'block {prev_file} is: {res}')
+        results.append({'block': prev_file, 'result': res})
+
+    return results
 
 
 def write_block(name, amount, to_whom, prev_hash=''):
@@ -53,7 +58,7 @@ def write_block(name, amount, to_whom, prev_hash=''):
 
 def main():
     # write_block(name='maks', amount=5, to_whom='anna')
-    chek_integrity()
+    print(chek_integrity())
 
 
 if __name__ == '__main__':
